@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqcet.dao.SubjectMapper">
+    <resultMap id="BaseResultMap" type="com.cqcet.entity.Subject">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+    </resultMap>
+
+    <!-- 查询所有父板块 -->
+    <select id="subjectList" resultMap="BaseResultMap">
+        SELECT
+        id,
+        name,
+        FROM
+        subject
+    </select>
+
+    <!-- 新增父板块-->
+    <insert id="add">
+        INSERT INTO subject
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name!=null and name!=''">name,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name!=null and name!=''">#{name},</if>
+        </trim>
+    </insert>
+
+    <!-- 更新父板块 -->
+    <update id="update">
+        UPDATE subject
+        <set>
+            <if test="name!=null and name!=''">name=#{name},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据父板块主键批量删除 -->
+    <delete id="remove">
+        DELETE FROM subject WHERE id IN
+        <foreach collection="id" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+</mapper>
