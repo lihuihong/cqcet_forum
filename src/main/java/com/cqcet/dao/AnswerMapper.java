@@ -37,4 +37,6 @@ public interface AnswerMapper {
      * @return
      */
     List<Answer> queryAnswerByChildId(Integer acticleId, Integer childId);
+
+    int allCountAnswer(String articleId);
 }

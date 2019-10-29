@@ -20,7 +20,7 @@
         <a href="feedback.html">常见问题</a><i>|</i>
         <a href="feedback.html">意见反馈</a>
         <c:choose>
-            <c:when test="${sessionScope.get(\"userInfo\").username == 'admin'}">
+            <c:when test="${sessionScope.get(\"userInfo\").studentId == '2016180652'}">
                 <i>|</i>
                 <a href="<%=request.getContextPath()%>/admin/list.action">后台管理</a>
             </c:when>

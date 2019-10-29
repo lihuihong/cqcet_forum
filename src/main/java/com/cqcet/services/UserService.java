@@ -340,6 +340,7 @@ public class UserService {
         user.setLevel("1");
         user.setUsername(username);
         user.setStudentId(studentId);
+        user.setStatus("1");
         userMapper.insert(user);
 
         UserInfo userInfo = new UserInfo();
@@ -416,11 +417,12 @@ public class UserService {
         // 从session中取出用户身份信息
         User user = (User)session.getAttribute("userInfo");
         if (user!=null) {
-            request.getSession().setAttribute("userInfo", user);
+
             request.getSession().setAttribute("user", user.getId());
             request.getSession().setAttribute("avatar", user.getAvatar());
             request.getSession().setAttribute("username", user.getUsername());
             User user1 = selectById(user.getId());
+            request.getSession().setAttribute("userInfo", user1);
             // 根据主键查询用户信息
             return user1;
         }

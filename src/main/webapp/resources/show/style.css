@@ -343,7 +343,7 @@ a:hover{
 
 .answer-input{
 	border: 1px lightgrey dashed;
-	width: 100%;
+
 }
 .ans-other{
 	margin-top:15px;
@@ -929,7 +929,7 @@ a:hover{
 	float: left;
 }
 .content_p{
-	height: 100px;
+	height: 150px;
 }
 .answer-left p{
 	margin-top: 10px;
@@ -945,13 +945,14 @@ a:hover{
 	width: 100%;
 }
 .child_content{
-	height: 100px;
+	height: 150px;
 	width: 100%;
 }
 .input_ans{
 	height: 0px;
 	transition: all 0.2s;
 	overflow: hidden;
+	margin-top: 15px;
 }
 
 .letter-chatlist {

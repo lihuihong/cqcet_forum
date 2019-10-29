@@ -165,7 +165,7 @@
                                     </a>
                                     <div class="card-top-right-box l">
                                         <p><%=session.getAttribute("username")%></p>
-                                        <p>新手上路</p>
+                                        <p>${sessionScope.get("userInfo").groupName}</p>
                                     </div>
                                 </div>
                                 <div class="user-center-box">

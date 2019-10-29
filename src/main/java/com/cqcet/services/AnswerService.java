@@ -53,4 +53,8 @@ public class AnswerService {
         return answerMapper.queryAnswerByChildId(acticleId,childId);
     }
 
+    public int allCountAnswer(String articleId){
+        return answerMapper.allCountAnswer(articleId);
+    }
+
 }

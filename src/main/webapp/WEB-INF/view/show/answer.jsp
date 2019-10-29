@@ -66,7 +66,7 @@
                                         <p>来自 <a href="#" style="color:#ff82e4;">${entity.username}</a> </p>
                                     </div>
                                     <div class="col-md-4">
-                                        <p>回复 <span style="color:#ff82e4;">3018</span> / 查看 <span style="color:#ff82e4;">${entity.viewCount}</span> / 赞 <span style="color:#ff82e4;">${entity.liked}</span> </p>
+                                        <p>查看 <span style="color:#ff82e4;">${entity.viewCount}</span> / 赞 <span style="color:#ff82e4;">${entity.liked}</span> </p>
                                     </div>
                                     <div class="col-md-4" style="text-align:right">
                                         <p>时间 <span style="color:#ff82e4;"><fmt:formatDate value="${entity.updateTime}" pattern="yyyy/MM/dd  HH:mm:ss" /></span> </p>
@@ -161,7 +161,7 @@
 
     <script>
 
-        function post(acticleId) {
+        function post(articleId) {
 
             //获取编辑器的内容
             var content = $("#content").val();
@@ -171,7 +171,7 @@
                 type: "POST",
                 dataType: "json",
                 data: {
-                    "acticleId": acticleId,
+                    "articleId": articleId,
                     "content": content,
                     "answerId":null,
                     "childId":null
@@ -183,7 +183,7 @@
                             type: "success"
                         });
                         // 刷新页面
-                        window.location.href = "${pageContext.request.contextPath}/show/detail.action?id="+acticleId;
+                        window.location.href = "${pageContext.request.contextPath}/show/detail.action?id="+articleId;
                     } else {
                         helper.toast({
                             content: rtn.message,

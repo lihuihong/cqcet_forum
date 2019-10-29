@@ -104,7 +104,7 @@
                                     <p>来自 <a href="#" style="color:#ff82e4;">${article.username}</a></p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>回复 <span style="color:#ff82e4;">3018</span> / 查看 <span
+                                    <p>回复 <span style="color:#ff82e4;">${allCountAnswer}</span> / 查看 <span
                                             style="color:#ff82e4;">${article.viewCount}</span> / 赞 <span
                                             style="color:#ff82e4;">${article.liked}</span></p>
                                 </div>
@@ -152,11 +152,11 @@
                                 <img src="${answer.user.avatar}"/>
                             </div>
                         </div>
-                        <div class="left" style="margin-left: 20px;width: 90%;">
+                        <div class="left" style="margin-left: 20px;">
                             <div>
                                 <p class="dark-p"><a href="#" style="color:#fe6900;">${answer.user.username}</a></p>
                                 <p>${answer.answer.content}</p>
-                                <p class="dark-p" style="text-align: right;letter-spacing: 0px;">
+                                <p class="dark-p" style="letter-spacing: 0px;">
                                     <a href="javascript:opup_reply('${status.index}','${answer.user.username}','${answer.answer.id}','${answer.answer.childId}')">回复</a>&nbsp;&nbsp;
                                     <fmt:formatDate value="${answer.answer.updateTime}" pattern="yyyy/MM/dd  HH:mm:ss"/>
                                 </p>
@@ -170,7 +170,7 @@
                                                 <img src="${child.childUser.avatar}"/>
                                             </div>
                                         </div>
-                                        <div class="left" style="margin-left: 20px;width: 90%;">
+                                        <div class="left" style="margin-left: 20px;">
                                             <div class="content_p">
                                                 <c:choose>
                                                     <c:when test="${answer.answer.childId eq child.answer.parentId || child.childUser.username eq child.parentUser.username}">
@@ -283,7 +283,7 @@
 
 
     function opup_reply(id, name, answer_id, child_id) {
-        $("#id" + id).css("height", "70px");
+        $("#id" + id).css("height", "100px");
         $("#spId" + id).text(name);
         $("#answer_info").val(answer_id);
         $("#child_id").val(child_id);

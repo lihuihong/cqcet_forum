@@ -45,7 +45,7 @@
         <div class="row">
             <c:forEach items="${typeList}" begin="0" var="entity" varStatus="status">
                 <div class="col-md-6 tagcloud">
-                    <a href="${pageContext.request.contextPath}/show/search.action?typeId=${entity.get(1).id}"
+                    <a href="${pageContext.request.contextPath}/show/search.action?type=帖子&typeId=${entity.get(1).id}"
                        class="label label-default" style="float: left;">${entity.get(1).name}
                         <span class="badge" style="margin-left: 5px;">${entity.get(0)}</span>
                     </a>

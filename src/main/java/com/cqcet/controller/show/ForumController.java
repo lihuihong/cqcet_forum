@@ -90,14 +90,14 @@ public class ForumController {
         //得到当前用户登录的id
         String userId = userInfo.getId();
         Map<String, Object> param = new HashMap<>();
-        if (!(userId.equals(null))) {
+        if (userId != null) {
             User user = userService.selectById(userId);
             map.put("user", user);
             param.put("userId", userId);
             param.put("status", "0");
             param.put("collegeId", collegeId);
             //帖子
-            param.put("alias",subject);
+            //param.put("alias",subject);
             list = articleService.list(param);
             map.put("userId", userId);
             map.put("articleList", list);
@@ -120,6 +120,8 @@ public class ForumController {
         PageInfo<Article> articlePageInfo = new PageInfo<Article>(articles);
         map.put("college", college);
         map.put("articles", articlePageInfo);
+
+
         return "show/answer";
     }
 
@@ -180,7 +182,8 @@ public class ForumController {
 
             map.put("answerList",list);
         }
-
+        int allCountAnswer = answerService.allCountAnswer(id);
+        map.put("allCountAnswer",allCountAnswer);
 
         return "show/detail";
     }
@@ -374,13 +377,13 @@ public class ForumController {
     public String search(ModelMap map,@RequestParam(required = false,value = "keyWord")String keyWord,
                          @RequestParam(required = false, value = "type") String typeName,
                          @RequestParam(value = "pageNum",defaultValue = "1")int pageNum,
-                         @RequestParam(value = "pageSize",defaultValue = "6")int pageSize){
+                         @RequestParam(value = "pageSize",defaultValue = "6")int pageSize,
+                         @RequestParam(value = "typeId",defaultValue = "0")String typeId){
 
         Map<String, Object> param = new HashMap<String, Object>();
         param.put("status", 0);
         map.put("name",typeName);
         map.put("articleList",articleService.list(null));
-
         // 查询所有帖子分类以及该分类下条数
         List<List> lists = new ArrayList<>();
         List<Type> types = typeService.list();
@@ -402,9 +405,14 @@ public class ForumController {
         }
 
         if ("帖子".equals(typeName)){
-
-            param.put("keyWord", "%" + keyWord.trim() + "%");
-
+            if (keyWord != null){
+                param.put("keyWord", "%" + keyWord.trim() + "%");
+            }
+            if (!typeId.equals("0")){
+                param.put("typeId", typeId);
+                List<Article> list = articleService.list(param);
+                map.put("articleList",list);
+            }
             // pageHelper分页插件
             // 只需要在查询之前调用，传入当前页码，以及每一页显示多少条
             PageMethod.startPage(pageNum, pageSize);
