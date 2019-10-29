@@ -44,6 +44,22 @@ public class CollegeController {
     }
 
     /**
+     * 查询所有学院
+     * @param map
+     * @return
+     */
+    @RequestMapping("/college_list.json")
+    @ResponseBody
+    public List<College> college_list_json(){
+        List<College> list = collegeService.list();
+        if (list.size() >0){
+            return list;
+        }else {
+            return null;
+        }
+    }
+
+    /**
      * 保存学院
      * @param idArr
      * @param sortArr
@@ -79,6 +95,23 @@ public class CollegeController {
     public Result college_delete(@RequestParam(value = "idArr") String[] idArr) throws LException{
         collegeService.delete(idArr);
         return Result.success();
+    }
+
+    /**
+     * 根据学院id查询专业
+     * @param collegeId
+     * @return
+     * @throws LException
+     */
+    @RequestMapping("/selectByCollegeId.json")
+    @ResponseBody
+    public List<Professional> selectByCollegeId(@RequestParam(value = "collegeId") String collegeId) throws LException{
+        List<Professional> professionals = professionalService.selectByCollegeId(collegeId);
+        if (professionals.size()>0){
+            return professionals;
+        }else {
+            return null;
+        }
     }
 
 

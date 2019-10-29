@@ -77,14 +77,14 @@
                         <a href="#" class="fa fa-question-circle"></a>
                     </div>
                     <div class="form-group help">
-                        <input type="select" class="form-control" id="reg-school" placeholder="学   院">
-                        <i class="fa fa-lock"></i>
-                        <a href="#" class="fa fa-question-circle"></a>
+                        <select name="city" class="form-control" id="reg-school" placeholder="学   院">
+                            <option value="">请选择一个学院</option>
+                        </select>
                     </div>
                     <div class="form-group help">
-                        <input type="text" class="form-control" id="reg-professional" placeholder="专   业">
-                        <i class="fa fa-lock"></i>
-                        <a href="#" class="fa fa-question-circle"></a>
+                        <select name="city" class="form-control" id="reg-professional" placeholder="专   业">
+                            <option value="">请选择一个专业</option>
+                        </select>
                     </div>
                     <div class="form-group" style="margin-top:40px;">
                         <button type="button" class="btn btn-default" style="float:left;" id="reg-button-submit">注册
@@ -101,6 +101,43 @@
     </div>
 </div>
 <script>
+    //获取全部学院
+    $.ajax({
+        url: "/collage/college_list.json",
+        type: "GET",
+        success: function (rtn) {
+            if (rtn != null){
+                for (var i = 0; i < rtn.length; i++) {
+                    $("#reg-school").append(new Option(rtn[i].name,rtn[i].id));
+                }
+            } else {
+                $("#reg-school").append(new Option("无学院",""));
+            }
+        }
+    });
+    $(document).ready(function () {
+        $('#reg-school').change(function () {
+            var collegeId = $('#reg-school option:selected').val();
+            $("#reg-professional").find("option").remove();
+            $.ajax({
+                url: "/collage/selectByCollegeId.json",
+                type: "POST",
+                dataType: "json",
+                async:true,
+                data: {collegeId: collegeId},
+                success: function (rtn) {
+                    if (rtn != null){
+                        for (var i = 0; i < rtn.length; i++) {
+                            $("#reg-professional").append(new Option(rtn[i].name,rtn[i].id));
+                        }
+                    } else {
+                        $("#reg-professional").append(new Option("无专业",""));
+                    }
+                }
+            })
+        });
+    });
+
     H_login = {};
     H_login.openLogin = function () {
         $('#go-register').click(function () {
@@ -180,7 +217,6 @@
             var student = $("#reg-num");
             var studentValue = $("#reg-num").val();
             var schoolValue = $("#reg-school").val();
-            var professional = $("#reg-professional");
             var professionalValue = $("#reg-professional").val();
 
             if (usernameValue == "") {
@@ -203,7 +239,7 @@
                 alert("两次密码不一致");
                 repassword.focus();
                 return false;
-            } else if (studentValue.length == 8) {
+            } else if (studentValue.length != 10) {
                 alert("学号必须是10位");
                 student.focus();
                 return false;

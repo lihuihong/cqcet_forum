@@ -27,6 +27,10 @@ public class ProfessionalService {
         return professionalMapper.list();
     }
 
+    public List<Professional> selectByCollegeId(String collegeId){
+        return professionalMapper.selectByCollegeId(collegeId);
+    }
+
     public void save(List<Professional> professionalList) throws LException {
 
         for (Professional professional : professionalList) {

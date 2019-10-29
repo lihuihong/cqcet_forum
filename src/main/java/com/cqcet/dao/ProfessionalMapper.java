@@ -33,6 +33,8 @@ public interface ProfessionalMapper {
 
     int selectByProfessionalId(String professionalId);
 
+    List<Professional> selectByCollegeId(String collegeId);
+
 
     int idByName(String professional);
 }

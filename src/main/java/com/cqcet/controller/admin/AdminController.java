@@ -3,6 +3,8 @@ package com.cqcet.controller.admin;
 import com.cqcet.entity.Article;
 import com.cqcet.entity.College;
 import com.cqcet.entity.Result;
+import com.cqcet.entity.User;
+import com.cqcet.exception.LException;
 import com.cqcet.services.*;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.page.PageMethod;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -65,14 +68,21 @@ public class AdminController {
      * @return
      */
     @RequestMapping("/list.action")
-    public String list(ModelMap map,
+    public String list(ModelMap map, HttpServletRequest request,
                        @RequestParam(required = false, value = "typeId") String typeId,
                        @RequestParam(required = false, value = "startDate") String startDate,
                        @RequestParam(required = false, value = "endDate") String endDate,
                        @RequestParam(required = false, value = "keyWord") String keyWord,
                        @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
-                       @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
-
+                       @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) throws LException {
+        User userInfo = userService.getUserInfo(request);
+        if (userInfo == null) {
+            return "/show/login";
+        }
+        /*if (!userInfo.getUsername().equals("admin") && !userInfo.getStudentId().equals("2016180652")) {
+            //throw new LException("权限不足，请联系管理员");
+            return "/";
+        }*/
         Map<String, Object> param = new HashMap<String, Object>();
         param.put("typeId", typeId);
         param.put("startDate", startDate);

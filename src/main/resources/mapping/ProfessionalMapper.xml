@@ -89,6 +89,16 @@
             id = #{professionalId}
     </select>
 
+    <!--根据学院id查询专业-->
+    <select id="selectByCollegeId" resultMap="BaseResultMap">
+        SELECT
+            *
+        FROM
+            professional_info
+        WHERE
+            college_id = #{collegeId}
+    </select>
+
     <!-- 查询学院的id -->
     <select id="idByName" resultType="int">
         SELECT

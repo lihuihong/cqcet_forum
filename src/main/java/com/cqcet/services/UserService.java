@@ -317,16 +317,6 @@ public class UserService {
         if (count > 0) {
             throw new LException("该用户名已被占用");
         }
-        // 校验学院是否存在
-        count = collegeMapper.countByName(college, null);
-        if (count == 0) {
-            throw new LException("学院不存在");
-        }
-        // 校验专业是否存在
-        count = professionalMapper.countByName(professional, null);
-        if (count == 0) {
-            throw new LException("专业不存在");
-        }
 
         //添加用户
         Date currentTime = new Date();
@@ -344,9 +334,9 @@ public class UserService {
         }
         user.setPassword(MD5.md5(password));    // 密码加密
         user.setStatus("0");    // 正常状态
-        int collegeId = collegeMapper.idByName(college);
+        //int collegeId = collegeMapper.idByName(college);
         //int collegeId = professionalMapper.selectByProfessionalId(user.getProfessionalId());
-        user.setCollege(String.valueOf(collegeId));
+        user.setCollege(String.valueOf(college));
         user.setLevel("1");
         user.setUsername(username);
         user.setStudentId(studentId);
@@ -356,8 +346,8 @@ public class UserService {
         userInfo.setUserId(user.getId());
         userInfo.setGradeId("1");
         userInfo.setAvatar("http://heylhh.com/FgWPzwwYEQRoBYYvx1lL3epPtIws");
-        int professionalId = professionalMapper.idByName(professional);
-        userInfo.setProfessionalId(String.valueOf(professionalId));
+        //int professionalId = professionalMapper.idByName(professional);
+        userInfo.setProfessionalId(String.valueOf(professional));
         userInfoMapper.insert(userInfo);
 
         // 对用户信息进行加密，用于cookie存储
