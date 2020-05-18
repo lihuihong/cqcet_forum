@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by 那个谁 on 2018/9/11.
  */
-public class Result {
+public class Result<T> {
 
     // code 状态码： 成功：000000，失败：111111
     private String code;
@@ -17,6 +17,7 @@ public class Result {
     // 返回的数据（链式）
     private Map<String, Object> data = new HashMap<String, Object>();
 
+    private T dataInfo;
     public static Result success() {
         Result result = new Result();
         result.setCode("000000");
@@ -28,6 +29,15 @@ public class Result {
         Result result = new Result();
         result.setCode("000000");
         result.setMessage("成功!!!");
+        result.setDataInfo(message);
+        return result;
+    }
+
+    public static Result success(int code,Object message) {
+        Result result = new Result();
+        result.setCode("000000");
+        result.setMessage("成功!!!");
+        result.setDataInfo(message);
         return result;
     }
 
@@ -64,5 +74,13 @@ public class Result {
     }
     public void setData(Map<String, Object> data) {
         this.data = data;
+    }
+
+    public T getDataInfo() {
+        return dataInfo;
+    }
+
+    public void setDataInfo(T dataInfo) {
+        this.dataInfo = dataInfo;
     }
 }

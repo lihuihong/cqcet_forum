@@ -99,6 +99,7 @@
             </div>
         </div>
     </div>
+    <jsp:include page="footer.jsp" flush="true" />
 </div>
 <script>
     //获取全部学院
